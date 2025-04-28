@@ -3,31 +3,312 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>StaySlim (Prototype)</title>
+  <title>StaySlim</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --accent: #3b82f6;
-      --accent-light: #bfdbfe;
-      --bg: #f3f4f6;
+      --accent: #2563eb;
+      --accent-light: #dbeafe;
+      --accent-dark: #1e40af;
+      --bg: #f8fafc;
       --card: #ffffff;
-      --text: #1f2937;
-      --warning: #f97316;
-      --danger: #ef4444;
-      --success: #10b981;
+      --text: #0f172a;
+      --text-secondary: #64748b;
+      --border: #e2e8f0;
+      --warning: #f59e0b;
+      --danger: #dc2626;
+      --success: #16a34a;
+      --shadow: rgba(0, 0, 0, 0.05);
     }
-    * { box-sizing: border-box; font-family: Arial, Helvetica, sans-serif; }
-    body { margin:0; background:var(--bg); color:var(--text); min-height:100vh; display:flex; flex-direction:column; }
-    nav { background:var(--accent); color:#fff; padding:1rem 2rem; display:flex; gap:1rem; align-items:center; }
-    nav button { background:transparent; border:none; color:inherit; font-weight:bold; cursor:pointer; }
-    .brand { font-weight:900; margin-right:1rem; }
-    .auth { display:none; }
-    h1 { margin-top:0; }
-    .container { width:100%; max-width:850px; margin:1.5rem auto; background:var(--card); padding:2rem; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,.05); }
-    input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="date"] { width:100%; padding:.6rem .75rem; margin:.25rem 0 1rem; border:1px solid #d1d5db; border-radius:8px; }
-    button.primary { background:var(--accent); border:none; padding:.6rem 1.2rem; color:#fff; border-radius:8px; cursor:pointer; }
-    .view{display:none;}
-    .streak{font-weight:bold;}
-    @media(max-width:600px){ nav{flex-wrap:wrap;gap:.5rem;} .container{padding:1.25rem;} }
+    * { box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+    body { 
+      margin: 0; 
+      background: var(--bg); 
+      color: var(--text); 
+      min-height: 100vh; 
+      display: flex; 
+      flex-direction: column;
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    nav { 
+      background: var(--accent); 
+      color: #fff; 
+      padding: 1rem 2rem; 
+      display: flex; 
+      gap: 1.5rem; 
+      align-items: center;
+      box-shadow: 0 1px 3px var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    nav button { 
+      background: transparent; 
+      border: none; 
+      color: inherit; 
+      font-weight: 600; 
+      font-size: 14px;
+      cursor: pointer;
+      padding: 6px 12px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    nav button:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .brand { 
+      font-weight: 700; 
+      font-size: 18px;
+      margin-right: 1rem; 
+      letter-spacing: -0.01em;
+    }
+    .auth { display: none; }
+    h1, h2, h3 { 
+      margin-top: 0;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 1.5rem;
+    }
+    h2 {
+      font-size: 18px;
+      margin: 1.75rem 0 1rem;
+    }
+    .container { 
+      width: 100%; 
+      max-width: 850px; 
+      margin: 1.75rem auto; 
+      background: var(--card); 
+      padding: 2rem;
+      border-radius: 10px; 
+      box-shadow: 0 4px 12px var(--shadow);
+      border: 1px solid var(--border);
+    }
+    input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="date"] { 
+      width: 100%; 
+      padding: 0.75rem 1rem; 
+      margin: 0.5rem 0 1.25rem; 
+      border: 1px solid var(--border); 
+      border-radius: 6px;
+      font-size: 15px;
+      transition: border 0.2s;
+    }
+    input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px var(--accent-light);
+    }
+    label {
+      font-weight: 500;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    button.primary { 
+      background: var(--accent); 
+      border: none; 
+      padding: 0.75rem 1.2rem; 
+      color: #fff; 
+      border-radius: 6px; 
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 15px;
+      transition: background 0.2s;
+    }
+    button.primary:hover {
+      background: var(--accent-dark);
+    }
+    .view { display: none; }
+    .streak { font-weight: 600; }
+    
+    /* Stats card */
+    #stats {
+      padding-left: 1.25rem;
+      margin-bottom: 1.5rem;
+      border-left: 5px solid var(--accent);
+    }
+    #stats p {
+      margin: 0.5rem 0;
+    }
+    
+    /* Dividers */
+    hr {
+      border: none;
+      height: 1px;
+      background-color: var(--border);
+      margin: 1.75rem 0;
+    }
+    
+    /* Check-in container */
+    #check-in-container {
+      text-align: center;
+      margin: 1.5rem 0;
+      padding: 1.5rem;
+      background: linear-gradient(to right, #f0f9ff, #e0f2fe);
+      border-radius: 10px;
+      border: 1px solid var(--accent-light);
+    }
+    #check-in-container h2 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+    #check-in-button-container button {
+      padding: 0.875rem 1.5rem;
+      font-size: 16px;
+      border-radius: 30px;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+      margin: 0.75rem 0;
+      font-weight: 600;
+      background: linear-gradient(to right, var(--accent), var(--accent-dark));
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    #check-in-button-container button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(37, 99, 235, 0.25);
+    }
+    #check-in-completed {
+      background: var(--success);
+      color: white;
+      padding: 1.25rem;
+      border-radius: 8px;
+      margin: 0.75rem 0;
+      box-shadow: 0 2px 8px rgba(22, 163, 74, 0.2);
+    }
+    
+    /* Weight table */
+    .weight-table { 
+      width: 100%; 
+      border-collapse: collapse; 
+      margin-top: 1rem;
+      font-size: 14px;
+    }
+    .weight-table th { 
+      padding: 10px 12px; 
+      text-align: left; 
+      border-bottom: 2px solid var(--border);
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+    .weight-table td { 
+      padding: 12px; 
+      text-align: left; 
+      border-bottom: 1px solid var(--border);
+    }
+    .weight-table tr:hover { 
+      background: #f8fafc; 
+    }
+    .weight-diff { 
+      font-weight: 600; 
+      border-radius: 4px;
+      padding: 2px 8px;
+      display: inline-block;
+    }
+    .weight-diff.down { 
+      color: var(--success);
+      background: rgba(22, 163, 74, 0.1);
+    }
+    .weight-diff.up { 
+      color: var(--danger);
+      background: rgba(220, 38, 38, 0.1);
+    }
+    .delete-btn { 
+      background: none; 
+      border: none; 
+      color: var(--text-secondary);
+      cursor: pointer;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+      font-size: 13px;
+    }
+    .delete-btn:hover {
+      opacity: 1;
+      color: var(--danger);
+    }
+    
+    /* Leaderboard styling */
+    #leaderboard table tr {
+      transition: background 0.2s;
+    }
+    #leaderboard table tr[style*="background-color"] {
+      background-color: var(--accent-light) !important;
+      font-weight: 500;
+    }
+    
+    /* Debug tools */
+    #debug-tools {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f1f5f9;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    #debug-tools h3 {
+      margin-top: 0;
+      font-size: 16px;
+      color: var(--text-secondary);
+    }
+    #debug-tools button {
+      padding: 8px 12px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      background: white;
+      cursor: pointer;
+      font-size: 13px;
+      transition: background 0.2s;
+    }
+    #debug-tools button:hover {
+      background: #f8fafc;
+    }
+    #debug-output {
+      margin-top: 10px;
+      font-family: monospace;
+      white-space: pre-wrap;
+      font-size: 13px;
+      color: var(--text-secondary);
+      background: white;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    
+    /* Form success messages */
+    #log-msg, #signup-msg {
+      color: var(--success);
+      font-weight: 500;
+    }
+    #login-msg, #login-msg, #checkin-msg {
+      font-weight: 500;
+    }
+    
+    /* Responsive */
+    @media(max-width: 900px) {
+      .container {
+        margin: 1.25rem;
+        padding: 1.5rem;
+      }
+    }
+    @media(max-width: 600px){ 
+      nav {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding: 0.875rem 1.25rem;
+      } 
+      .container {
+        padding: 1.25rem;
+        margin: 1rem;
+      }
+      h1 {
+        font-size: 22px;
+      }
+      input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="date"] {
+        padding: 0.625rem 0.875rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -38,35 +319,35 @@
     <button class="auth" onclick="showView('dashboard')">Dashboard</button>
     <button class="auth" onclick="showView('leaderboard')">Leaderboard</button>
     <button class="auth" onclick="logout()">Logout</button>
-    <div id="nav-user" style="margin-left:auto;font-weight:bold;"></div>
+    <div id="nav-user" style="margin-left:auto;font-weight:500;font-size:14px;"></div>
   </nav>
 
   <!-- LOGIN -->
   <section id="login" class="view container">
-    <h1>Login</h1>
+    <h1>Welcome Back</h1>
     <form onsubmit="login(event)">
       <label>Email</label>
-      <input id="login-email" type="email" required />
+      <input id="login-email" type="email" required placeholder="your@email.com" />
       <label>Password</label>
-      <input id="login-password" type="password" required />
-      <button class="primary">Login</button>
+      <input id="login-password" type="password" required placeholder="••••••••" />
+      <button class="primary">Sign In</button>
     </form>
     <p id="login-msg"></p>
   </section>
 
   <!-- SIGNUP -->
   <section id="signup" class="view container">
-    <h1>Signup</h1>
+    <h1>Create Your Account</h1>
     <form onsubmit="signup(event)">
       <label>Username</label>
-      <input id="su-username" type="text" required />
+      <input id="su-username" type="text" required placeholder="username" />
       <label>Email</label>
-      <input id="su-email" type="email" required />
+      <input id="su-email" type="email" required placeholder="your@email.com" />
       <label>Password</label>
-      <input id="su-password" type="password" required />
+      <input id="su-password" type="password" required placeholder="••••••••" />
       <label>Height (cm)</label>
-      <input id="su-height" type="number" step="0.1" required />
-      <button class="primary">Create account</button>
+      <input id="su-height" type="number" step="0.1" required placeholder="175" />
+      <button class="primary">Create Account</button>
     </form>
     <p id="signup-msg"></p>
   </section>
@@ -75,22 +356,37 @@
   <section id="dashboard" class="view container">
     <h1>Your Dashboard</h1>
     <div id="stats"></div>
+    
+    <div id="check-in-container">
+      <h2>Daily Check-In</h2>
+      <div id="check-in-button-container">
+        <button class="primary" onclick="checkIn()">
+          <span style="font-size:20px;vertical-align:middle;margin-right:6px;">💪</span> I worked out today!
+        </button>
+      </div>
+      <div id="check-in-completed" style="display:none;">
+        <span style="font-size:20px;vertical-align:middle;margin-right:6px;">✅</span> 
+        <span style="font-size:16px;font-weight:600;">Checked in today!</span>
+        <p style="margin:5px 0 0;">Keep up the good work!</p>
+      </div>
+      <p id="checkin-msg" style="font-weight:500;margin:5px 0 0;"></p>
+    </div>
+    
     <hr>
     <h2>Daily Log</h2>
     <form onsubmit="addLog(event)">
       <label>Date</label>
       <input id="log-date" type="date" required />
       <label>Weight (kg)</label>
-      <input id="log-weight" type="number" step="0.1" required />
+      <input id="log-weight" type="number" step="0.1" required placeholder="65.5" />
       <label>Calories Intake</label>
-      <input id="log-cal" type="number" required />
-      <button class="primary">Save</button>
+      <input id="log-cal" type="number" required placeholder="2000" />
+      <button class="primary">Save Entry</button>
     </form>
     <p id="log-msg"></p>
     <hr>
-    <h2>Quick Check‑In</h2>
-    <button class="primary" onclick="checkIn()">I worked out today 💪</button>
-    <p id="checkin-msg"></p>
+    <h2>Weight History</h2>
+    <div id="weight-history"></div>
     <hr>
     <h2>Weight Trend</h2>
     <canvas id="weight-chart" width="800" height="300"></canvas>
@@ -107,6 +403,13 @@
       </thead>
       <tbody id="lb-body"></tbody>
     </table>
+    <hr>
+    <div id="debug-tools">
+      <h3>Debug Tools</h3>
+      <button onclick="repairAllUserData()" style="margin-right:10px;">Repair User Data</button>
+      <button onclick="resetUserData()" style="background:var(--danger);color:white;border-color:var(--danger);">Reset All Data</button>
+      <div id="debug-output"></div>
+    </div>
   </section>
 
 <script>
@@ -126,7 +429,9 @@
   }
   
   function saveUsers(list) { 
-    LS.set('users', list); 
+    LS.set('users', list);
+    // Log a debug message when users are saved
+    console.log("Saved users:", list);
   }
   
   function current() { 
@@ -137,6 +442,14 @@
     LS.set('current', email); 
     document.getElementById('nav-user').textContent = email || '';
     updateNav();
+  }
+
+  function getLastView() {
+    return LS.get('lastView', 'login');
+  }
+
+  function setLastView(view) {
+    LS.set('lastView', view);
   }
 
   // ===== nav auth toggling =====
@@ -153,13 +466,29 @@
     }
     document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
     document.getElementById(id).style.display = 'block';
+    
     if (id === 'dashboard') refreshDashboard();
     if (id === 'leaderboard') loadLeaderboard();
+    
+    // Save current view
+    setLastView(id);
   }
   
   // Initialize view and navigation
-  updateNav();
-  showView('login'); 
+  document.addEventListener('DOMContentLoaded', function() {
+    updateNav();
+    
+    // Check if user is logged in
+    const userEmail = current();
+    if (userEmail) {
+      // User is logged in, show last view or default to dashboard
+      const lastView = getLastView();
+      showView(lastView);
+    } else {
+      // No user logged in, show login page
+      showView('login');
+    }
+  });
 
   // ===== signup & login =====
   function signup(e) {
@@ -175,7 +504,8 @@
       return;
     }
     
-    users.push({
+    // Create new user with all required fields
+    const newUser = {
       username,
       email,
       password,
@@ -184,9 +514,14 @@
       goals: [],
       checkIns: [],
       streak: { cur: 0, max: 0 }
-    });
+    };
     
+    users.push(newUser);
     saveUsers(users);
+    
+    // Debug message
+    console.log("New user created:", newUser);
+    
     document.getElementById('signup-msg').textContent = 'Account created! You may log in.';
     e.target.reset();
   }
@@ -216,6 +551,15 @@
     const user = getUsers().find(u => u.email === current());
     if (!user) return;
     
+    // Check if user already checked in today
+    const today = new Date().toISOString().slice(0, 10);
+    const checkedInToday = user.checkIns && user.checkIns.includes(today);
+    
+    // Update check-in UI based on whether user has already checked in
+    document.getElementById('check-in-button-container').style.display = checkedInToday ? 'none' : 'block';
+    document.getElementById('check-in-completed').style.display = checkedInToday ? 'block' : 'none';
+    document.getElementById('checkin-msg').textContent = '';
+    
     const last = user.logs[user.logs.length - 1];
     const bmi = last ? (last.weight / ((user.height / 100) ** 2)).toFixed(1) : '—';
     let bmiColor = 'var(--success)';
@@ -234,7 +578,12 @@
       <p><strong>Current Streak:</strong> <span class="streak">${user.streak.cur}</span> days</p>
     `;
     
+    // Set today's date as default for the log form
+    const todayDate = new Date().toISOString().slice(0, 10);
+    document.getElementById('log-date').value = todayDate;
+    
     drawWeightChart(user.logs);
+    displayWeightHistory(user.logs);
   }
   
   function addLog(e) {
@@ -257,6 +606,11 @@
     
     document.getElementById('log-msg').textContent = 'Saved!';
     e.target.reset();
+    
+    // Reset today's date after saving
+    const today = new Date().toISOString().slice(0, 10);
+    document.getElementById('log-date').value = today;
+    
     refreshDashboard();
   }
   
@@ -283,19 +637,163 @@
     users[idx] = user;
     saveUsers(users);
     
+    // Hide the button and show the completed message
+    document.getElementById('check-in-button-container').style.display = 'none';
+    document.getElementById('check-in-completed').style.display = 'block';
     document.getElementById('checkin-msg').textContent = 'Great job! Streak +1';
+    document.getElementById('checkin-msg').style.color = 'var(--success)';
+    
+    refreshDashboard();
+  }
+
+  // ===== weight history display =====
+  function displayWeightHistory(logs) {
+    const historyElem = document.getElementById('weight-history');
+    
+    if (!logs.length) {
+      historyElem.innerHTML = '<p>No weight entries yet.</p>';
+      return;
+    }
+    
+    // Sort logs by date, most recent first
+    const sortedLogs = [...logs].sort((a, b) => b.date.localeCompare(a.date));
+    
+    // Create table to display weight entries
+    let tableHTML = `
+      <table class="weight-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Weight</th>
+            <th>Change</th>
+            <th>Calories</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+    
+    sortedLogs.forEach((log, index) => {
+      const prevLog = sortedLogs[index + 1]; // previous entry is next in the array since we're sorting descending
+      let diffText = '—';
+      let diffClass = '';
+      
+      if (prevLog) {
+        const diff = (log.weight - prevLog.weight).toFixed(1);
+        if (diff < 0) {
+          diffText = `${diff} lbs`;
+          diffClass = 'down';
+        } else if (diff > 0) {
+          diffText = `+${diff} lbs`;
+          diffClass = 'up';
+        } else {
+          diffText = '0.0 lbs';
+        }
+      }
+      
+      // Format date to be more readable
+      const formattedDate = new Date(log.date).toLocaleDateString('en-US', {
+        weekday: 'long',
+        month: 'short',
+        day: 'numeric'
+      });
+      
+      tableHTML += `
+        <tr>
+          <td>${formattedDate}</td>
+          <td>${log.weight} lbs</td>
+          <td class="weight-diff ${diffClass}">${diffText}</td>
+          <td>${log.cal} cal</td>
+          <td><button class="delete-btn" onclick="deleteLog('${log.date}')">Delete</button></td>
+        </tr>
+      `;
+    });
+    
+    tableHTML += `
+        </tbody>
+      </table>
+    `;
+    
+    historyElem.innerHTML = tableHTML;
+  }
+  
+  // Delete a weight log entry
+  function deleteLog(date) {
+    if (!confirm('Are you sure you want to delete this entry?')) {
+      return;
+    }
+    
+    const users = getUsers();
+    const idx = users.findIndex(u => u.email === current());
+    if (idx === -1) return;
+    
+    const user = users[idx];
+    user.logs = user.logs.filter(l => l.date !== date);
+    
+    users[idx] = user;
+    saveUsers(users);
+    
     refreshDashboard();
   }
 
   // ===== leaderboard =====
   function loadLeaderboard() {
-    const list = getUsers()
-      .map(u => ({ user: u.username, cur: u.streak.cur, max: u.streak.max }))
-      .sort((a, b) => b.cur - a.cur || b.max - a.max);
+    const currentEmail = current();
+    const users = getUsers();
+    
+    console.log("Debug - Total users:", users.length);
+    console.log("Debug - Current user:", currentEmail);
+    
+    if (users.length === 0) {
+      document.getElementById('lb-body').innerHTML = '<tr><td colspan="4">No users found</td></tr>';
+      document.getElementById('debug-output').textContent = 'No users in database.';
+      return;
+    }
+    
+    // Make sure all users have streak property
+    const list = users.map(u => {
+      // Initialize streak if it doesn't exist
+      if (!u.streak) {
+        u.streak = { cur: 0, max: 0 };
+      }
+      
+      return { 
+        user: u.username || 'Anonymous', 
+        email: u.email,
+        cur: u.streak.cur || 0, 
+        max: u.streak.max || 0,
+        isCurrentUser: u.email === currentEmail
+      };
+    })
+    .sort((a, b) => b.cur - a.cur || b.max - a.max);
+    
+    console.log("Debug - Processed users for leaderboard:", list);
+    document.getElementById('debug-output').textContent = `Found ${users.length} users.`;
     
     document.getElementById('lb-body').innerHTML = list
-      .map((r, i) => `<tr><td>${i+1}</td><td>${r.user}</td><td>${r.cur}</td><td>${r.max}</td></tr>`)
+      .map((r, i) => `
+        <tr${r.isCurrentUser ? ' style="background-color:var(--accent-light);"' : ''}>
+          <td>${i+1}</td>
+          <td>${r.user}${r.isCurrentUser ? ' (You)' : ''}</td>
+          <td>${r.cur}</td>
+          <td>${r.max}</td>
+        </tr>
+      `)
       .join('');
+      
+    // Auto-repair users if needed
+    let needsRepair = false;
+    for (const user of users) {
+      if (!user.streak || typeof user.streak.cur !== 'number' || !user.checkIns) {
+        needsRepair = true;
+        break;
+      }
+    }
+    
+    if (needsRepair) {
+      console.warn("Some users need data repair");
+      repairAllUserData();
+    }
   }
 
   // ===== basic line chart =====
@@ -327,6 +825,87 @@
     
     ctx.stroke();
   }
+
+  // ===== Data repair functions =====
+  function repairAllUserData() {
+    const users = getUsers();
+    let repaired = 0;
+    
+    const repairedUsers = users.map(user => {
+      let hasChanges = false;
+      
+      // Ensure user has required fields
+      if (!user.username) {
+        user.username = user.email ? user.email.split('@')[0] : 'User_' + Math.floor(Math.random() * 1000);
+        hasChanges = true;
+      }
+      
+      if (!user.checkIns) {
+        user.checkIns = [];
+        hasChanges = true;
+      }
+      
+      if (!user.logs) {
+        user.logs = [];
+        hasChanges = true;
+      }
+      
+      if (!user.goals) {
+        user.goals = [];
+        hasChanges = true;
+      }
+      
+      // Ensure streak data exists and is valid
+      if (!user.streak) {
+        user.streak = { cur: 0, max: 0 };
+        hasChanges = true;
+      } else {
+        if (typeof user.streak.cur !== 'number') {
+          user.streak.cur = 0;
+          hasChanges = true;
+        }
+        if (typeof user.streak.max !== 'number') {
+          user.streak.max = 0;
+          hasChanges = true;
+        }
+      }
+      
+      if (hasChanges) {
+        repaired++;
+      }
+      
+      return user;
+    });
+    
+    if (repaired > 0) {
+      saveUsers(repairedUsers);
+      document.getElementById('debug-output').textContent = `Repaired ${repaired} user profiles.`;
+    } else {
+      document.getElementById('debug-output').textContent = 'All user data is valid.';
+    }
+    
+    // Reload the leaderboard
+    loadLeaderboard();
+  }
+  
+  function resetUserData() {
+    if (confirm('WARNING: This will delete ALL user data. This cannot be undone. Continue?')) {
+      localStorage.clear();
+      document.getElementById('debug-output').textContent = 'All data has been reset.';
+      // Redirect to login
+      setCurrent(null);
+      showView('login');
+    }
+  }
+
+  // Add this function to debug localStorage
+  function debugLocalStorage() {
+    console.log("Users:", getUsers());
+    console.log("Current user:", current());
+  }
+  
+  // Call debug when loading leaderboard
+  document.querySelector('button.auth[onclick="showView(\'leaderboard\')"]').addEventListener('click', debugLocalStorage);
 </script>
 </body>
 </html>

@@ -11,80 +11,34 @@
       --bg: #f3f4f6;
       --card: #ffffff;
       --text: #1f2937;
+      --warning: #f97316;
+      --danger: #ef4444;
+      --success: #10b981;
     }
-    * {
-      box-sizing: border-box;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    nav {
-      background: var(--accent);
-      color: #fff;
-      padding: 1rem 2rem;
-      display: flex;
-      gap: 1rem;
-    }
-    nav button {
-      background: transparent;
-      border: none;
-      color: inherit;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    h1 {
-      margin-top: 0;
-    }
-    .container {
-      width: 100%;
-      max-width: 850px;
-      margin: 1.5rem auto;
-      background: var(--card);
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    }
-    input[type="text"],
-    input[type="email"],
-    input[type="password"],
-    input[type="number"],
-    input[type="date"] {
-      width: 100%;
-      padding: 0.6rem 0.75rem;
-      margin: 0.25rem 0 1rem;
-      border: 1px solid #d1d5db;
-      border-radius: 8px;
-    }
-    button.primary {
-      background: var(--accent);
-      border: none;
-      padding: 0.6rem 1.2rem;
-      color: #fff;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    .view { display: none; }
-    .streak { font-weight: bold; }
-    /* simple responsive */
-    @media (max-width: 600px) {
-      nav { flex-wrap: wrap; gap: 0.5rem; }
-      .container { padding: 1.25rem; }
-    }
+    * { box-sizing: border-box; font-family: Arial, Helvetica, sans-serif; }
+    body { margin:0; background:var(--bg); color:var(--text); min-height:100vh; display:flex; flex-direction:column; }
+    nav { background:var(--accent); color:#fff; padding:1rem 2rem; display:flex; gap:1rem; align-items:center; }
+    nav button { background:transparent; border:none; color:inherit; font-weight:bold; cursor:pointer; }
+    .brand { font-weight:900; margin-right:1rem; }
+    .auth { display:none; }
+    h1 { margin-top:0; }
+    .container { width:100%; max-width:850px; margin:1.5rem auto; background:var(--card); padding:2rem; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,.05); }
+    input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="date"] { width:100%; padding:.6rem .75rem; margin:.25rem 0 1rem; border:1px solid #d1d5db; border-radius:8px; }
+    button.primary { background:var(--accent); border:none; padding:.6rem 1.2rem; color:#fff; border-radius:8px; cursor:pointer; }
+    .view{display:none;}
+    .streak{font-weight:bold;}
+    @media(max-width:600px){ nav{flex-wrap:wrap;gap:.5rem;} .container{padding:1.25rem;} }
   </style>
 </head>
 <body>
   <nav>
-    <button onclick="showView('login')">Login</button>
-    <button onclick="showView('signup')">Signup</button>
-    <button onclick="showView('dashboard')">Dashboard</button>
-    <button onclick="showView('leaderboard')">Leaderboard</button>
-    <div style="margin-left:auto;font-weight:bold;" id="nav-user"></div>
+    <span class="brand">StaySlim</span>
+    <button class="guest" onclick="showView('login')">Login</button>
+    <button class="guest" onclick="showView('signup')">Signup</button>
+    <button class="auth" onclick="showView('dashboard')">Dashboard</button>
+    <button class="auth" onclick="showView('leaderboard')">Leaderboard</button>
+    <button class="auth" onclick="logout()">Logout</button>
+    <div id="nav-user" style="margin-left:auto;font-weight:bold;"></div>
   </nav>
 
   <!-- LOGIN -->
@@ -158,137 +112,221 @@
 <script>
   // ===== simple localStorage helpers =====
   const LS = {
-    get(key, fallback) { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); },
-    set(key, value) { localStorage.setItem(key, JSON.stringify(value)); }
+    get: function(key, fallback) { 
+      return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); 
+    },
+    set: function(key, value) { 
+      localStorage.setItem(key, JSON.stringify(value)); 
+    }
   };
 
   // ===== data structures =====
-  function getUsers() { return LS.get('users', []); }
-  function saveUsers(list) { LS.set('users', list); }
-  function current() { return LS.get('current', null); }
-  function setCurrent(email) { LS.set('current', email); document.getElementById('nav-user').textContent = email || ''; }
+  function getUsers() { 
+    return LS.get('users', []); 
+  }
+  
+  function saveUsers(list) { 
+    LS.set('users', list); 
+  }
+  
+  function current() { 
+    return LS.get('current', null); 
+  }
+  
+  function setCurrent(email) { 
+    LS.set('current', email); 
+    document.getElementById('nav-user').textContent = email || '';
+    updateNav();
+  }
 
-  // ===== view switching =====
-  function showView(id) {
+  // ===== nav auth toggling =====
+  function updateNav() {
+    const auth = !!current(); 
+    document.querySelectorAll('.auth').forEach(b => b.style.display = auth ? 'inline-block' : 'none'); 
+    document.querySelectorAll('.guest').forEach(b => b.style.display = auth ? 'none' : 'inline-block');
+  }
+
+  // ===== view switching with guard =====
+  function showView(id) { 
+    if ((id === 'dashboard' || id === 'leaderboard') && !current()) {
+      id = 'login';
+    }
     document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
     document.getElementById(id).style.display = 'block';
     if (id === 'dashboard') refreshDashboard();
     if (id === 'leaderboard') loadLeaderboard();
   }
-  showView('login'); // default page
-  setCurrent(current());
+  
+  // Initialize view and navigation
+  updateNav();
+  showView('login'); 
 
   // ===== signup & login =====
   function signup(e) {
     e.preventDefault();
-    const username = su_username.value.trim();
-    const email = su_email.value.trim().toLowerCase();
-    const password = su_password.value;
-    const height = parseFloat(su_height.value);
-
+    const username = document.getElementById('su-username').value.trim();
+    const email = document.getElementById('su-email').value.trim().toLowerCase();
+    const password = document.getElementById('su-password').value;
+    const height = parseFloat(document.getElementById('su-height').value);
+    
     const users = getUsers();
     if (users.some(u => u.email === email)) {
-      signup_msg.textContent = 'Email already registered';
+      document.getElementById('signup-msg').textContent = 'Email already registered';
       return;
     }
-    users.push({ username, email, password, height, logs: [], goals: [], checkIns: [], streak: { cur: 0, max: 0 } });
+    
+    users.push({
+      username,
+      email,
+      password,
+      height,
+      logs: [],
+      goals: [],
+      checkIns: [],
+      streak: { cur: 0, max: 0 }
+    });
+    
     saveUsers(users);
-    signup_msg.textContent = 'Account created! You may log in.';
+    document.getElementById('signup-msg').textContent = 'Account created! You may log in.';
     e.target.reset();
   }
-
+  
   function login(e) {
     e.preventDefault();
-    const email = login_email.value.trim().toLowerCase();
-    const pw = login_password.value;
+    const email = document.getElementById('login-email').value.trim().toLowerCase();
+    const pw = document.getElementById('login-password').value;
     const user = getUsers().find(u => u.email === email && u.password === pw);
+    
     if (!user) {
-      login_msg.textContent = 'Invalid credentials';
+      document.getElementById('login-msg').textContent = 'Invalid credentials';
       return;
     }
+    
     setCurrent(user.email);
     showView('dashboard');
+  }
+  
+  function logout() {
+    setCurrent(null);
+    showView('login');
   }
 
   // ===== dashboard =====
   function refreshDashboard() {
     const user = getUsers().find(u => u.email === current());
     if (!user) return;
-    // Stats
-    const lastLog = user.logs[user.logs.length - 1];
-    const bmi = lastLog ? (lastLog.weight / ((user.height/100) **2)).toFixed(1) : '—';
-    stats.innerHTML = `<p><strong>Username:</strong> ${user.username}</p>
-                       <p><strong>Height:</strong> ${user.height} cm</p>
-                       <p><strong>Last Weight:</strong> ${lastLog ? lastLog.weight+' kg ('+lastLog.date+')' : '—'}</p>
-                       <p><strong>BMI:</strong> ${bmi}</p>
-                       <p><strong>Current Streak:</strong> <span class="streak">${user.streak.cur}</span> days</p>`;
-    // Chart
+    
+    const last = user.logs[user.logs.length - 1];
+    const bmi = last ? (last.weight / ((user.height / 100) ** 2)).toFixed(1) : '—';
+    let bmiColor = 'var(--success)';
+    const bmiVal = parseFloat(bmi);
+    
+    if (bmiVal < 18.5) bmiColor = 'var(--warning)';
+    else if (bmiVal >= 25) bmiColor = 'var(--danger)';
+    
+    const statsElem = document.getElementById('stats');
+    statsElem.style.borderLeft = `6px solid ${bmiColor}`;
+    statsElem.innerHTML = `
+      <p><strong>Username:</strong> ${user.username}</p>
+      <p><strong>Height:</strong> ${user.height} cm</p>
+      <p><strong>Last Weight:</strong> ${last ? last.weight + ' kg (' + last.date + ')' : '—'}</p>
+      <p><strong>BMI:</strong> ${bmi}</p>
+      <p><strong>Current Streak:</strong> <span class="streak">${user.streak.cur}</span> days</p>
+    `;
+    
     drawWeightChart(user.logs);
   }
-
+  
   function addLog(e) {
     e.preventDefault();
-    const date = log_date.value;
-    const weight = parseFloat(log_weight.value);
-    const cal = parseInt(log_cal.value);
+    const date = document.getElementById('log-date').value;
+    const weight = parseFloat(document.getElementById('log-weight').value);
+    const cal = parseInt(document.getElementById('log-cal').value);
+    
     const users = getUsers();
     const idx = users.findIndex(u => u.email === current());
     if (idx === -1) return;
+    
     const user = users[idx];
-    user.logs = user.logs.filter(l => l.date !== date); // ensure unique date
+    user.logs = user.logs.filter(l => l.date !== date);
     user.logs.push({ date, weight, cal });
-    user.logs.sort((a,b)=>a.date.localeCompare(b.date));
+    user.logs.sort((a, b) => a.date.localeCompare(b.date));
+    
     users[idx] = user;
     saveUsers(users);
-    log_msg.textContent = 'Saved!';
+    
+    document.getElementById('log-msg').textContent = 'Saved!';
     e.target.reset();
     refreshDashboard();
   }
-
+  
   function checkIn() {
     const users = getUsers();
     const idx = users.findIndex(u => u.email === current());
     if (idx === -1) return;
+    
     const user = users[idx];
-    const today = new Date().toISOString().slice(0,10);
-    if (user.checkIns.includes(today)) { checkin_msg.textContent = 'Already checked‑in today!'; return; }
+    const today = new Date().toISOString().slice(0, 10);
+    
+    if (user.checkIns.includes(today)) {
+      document.getElementById('checkin-msg').textContent = 'Already checked‑in today!';
+      return;
+    }
+    
     user.checkIns.push(today);
+    
     // streak logic
-    const yesterday = new Date(Date.now()-86400000).toISOString().slice(0,10);
+    const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
     user.streak.cur = user.checkIns.includes(yesterday) ? user.streak.cur + 1 : 1;
     user.streak.max = Math.max(user.streak.max, user.streak.cur);
+    
     users[idx] = user;
     saveUsers(users);
-    checkin_msg.textContent = 'Great job! Streak +1';
+    
+    document.getElementById('checkin-msg').textContent = 'Great job! Streak +1';
     refreshDashboard();
   }
 
   // ===== leaderboard =====
   function loadLeaderboard() {
-    const list = getUsers().map(u => ({ user: u.username, cur: u.streak.cur, max: u.streak.max }))
-                    .sort((a,b)=>b.cur-a.cur || b.max-a.max);
-    lb_body.innerHTML = list.map((r,i)=>`<tr><td>${i+1}</td><td>${r.user}</td><td>${r.cur}</td><td>${r.max}</td></tr>`).join('');
+    const list = getUsers()
+      .map(u => ({ user: u.username, cur: u.streak.cur, max: u.streak.max }))
+      .sort((a, b) => b.cur - a.cur || b.max - a.max);
+    
+    document.getElementById('lb-body').innerHTML = list
+      .map((r, i) => `<tr><td>${i+1}</td><td>${r.user}</td><td>${r.cur}</td><td>${r.max}</td></tr>`)
+      .join('');
   }
 
-  // ===== chart =====
+  // ===== basic line chart =====
   function drawWeightChart(logs) {
     const ctx = document.getElementById('weight-chart').getContext('2d');
-    ctx.clearRect(0,0,800,300);
-    if (!logs.length) { ctx.font='16px sans-serif'; ctx.fillText('No data yet', 10,30); return; }
-    const maxWt = Math.max(...logs.map(l=>l.weight));
-    const minWt = Math.min(...logs.map(l=>l.weight));
+    ctx.clearRect(0, 0, 800, 300);
+    
+    if (!logs.length) {
+      ctx.font = '16px sans-serif';
+      ctx.fillText('No data yet', 10, 30);
+      return;
+    }
+    
+    const maxWt = Math.max(...logs.map(l => l.weight));
+    const minWt = Math.min(...logs.map(l => l.weight));
     const pad = 10;
     const range = maxWt - minWt || 1;
-    const stepX = 800/(logs.length-1 || 1);
-    ctx.strokeStyle = '#3b82f6';
+    const stepX = 800 / (logs.length - 1 || 1);
+    
+    ctx.strokeStyle = 'var(--accent)';
     ctx.beginPath();
-    logs.forEach((l,i)=>{
-      const x = i*stepX;
-      const y = 300 - pad - ((l.weight - minWt)/range)*(300-2*pad);
-      if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    
+    logs.forEach((l, i) => {
+      const x = i * stepX;
+      const y = 300 - pad - ((l.weight - minWt) / range) * (300 - 2 * pad);
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
     });
+    
     ctx.stroke();
   }
 </script>
 </body>
-</html> 
+</html>

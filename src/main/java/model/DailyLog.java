@@ -27,4 +27,5 @@ public class DailyLog {
     public void setWeightKg(double weightKg) { this.weightKg = weightKg; }
     public int getCaloriesIntake() { return caloriesIntake; }
     public void setCaloriesIntake(int caloriesIntake) { this.caloriesIntake = caloriesIntake; }
+
 }

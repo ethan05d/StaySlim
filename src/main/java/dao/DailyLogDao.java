@@ -11,4 +11,5 @@ public interface DailyLogDao {
     List<DailyLog> findAll() throws SQLException;
     void update(DailyLog log) throws SQLException;
     void delete(int id) throws SQLException;
+    void deleteAll() throws SQLException;
 }

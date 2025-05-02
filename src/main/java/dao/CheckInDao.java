@@ -10,4 +10,5 @@ public interface CheckInDao {
     List<CheckIn> findByUser(int userId) throws SQLException;
     List<CheckIn> findAll() throws SQLException;
     void delete(int id) throws SQLException;
+    void deleteAll() throws SQLException;
 }

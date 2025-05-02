@@ -6,9 +6,13 @@ import java.sql.SQLException;
 import java.sql.SQLWarning;
 
 public class DBConnection {
-    private static final String URL = "jdbc:mysql://localhost:3306/StaySlim?useSSL=false&serverTimezone=UTC";
-    private static final String USER = "your_db_user";
-    private static final String PASSWORD = "your_db_password";
+    private static final String URL =
+            "jdbc:mysql://localhost:3306/StaySlim"
+                    + "?useSSL=false"
+                    + "&allowPublicKeyRetrieval=true"
+                    + "&serverTimezone=UTC";
+    private static final String USER = "stayslim";
+    private static final String PASSWORD = "EthanAndRohanPassword";
 
     static {
         try {

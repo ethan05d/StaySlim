@@ -9,4 +9,5 @@ public interface LeaderboardDao {
     Leaderboard findByUser(int userId) throws SQLException;
     List<Leaderboard> findTopStreaks(int limit) throws SQLException;
     void delete(int userId) throws SQLException;
+    void deleteAll() throws SQLException;
 }

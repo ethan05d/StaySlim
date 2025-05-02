@@ -11,4 +11,5 @@ public interface GoalDao {
     List<Goal> findAll() throws SQLException;
     void update(Goal goal) throws SQLException;
     void delete(int id) throws SQLException;
+    void deleteAll() throws SQLException;
 }

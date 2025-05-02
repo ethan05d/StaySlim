@@ -87,4 +87,12 @@ public class LeaderboardDaoImpl implements LeaderboardDao {
             ps.executeUpdate();
         }
     }
+
+    @Override
+    public void deleteAll() throws SQLException {
+        try (Connection conn = DBConnection.getConnection();
+             Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate("DELETE FROM Leaderboard");
+        }
+    }
 }

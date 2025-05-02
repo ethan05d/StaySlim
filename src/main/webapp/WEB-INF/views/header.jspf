@@ -1,0 +1,48 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<c:out value="DEBUG: sessionScope.user = ${sessionScope.user}" /><br/>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StaySlim</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/main.css" />
+</head>
+<body data-context-path="${pageContext.request.contextPath}">
+<nav>
+    <span class="brand">StaySlim</span>
+
+    <c:if test="${empty sessionScope.user}">
+        <button type="button" class="guest"
+                onclick="window.location='${pageContext.request.contextPath}/login'">
+            Login
+        </button>
+        <button type="button" class="guest"
+                onclick="window.location='${pageContext.request.contextPath}/signup'">
+            Signup
+        </button>
+    </c:if>
+
+    <c:if test="${not empty sessionScope.user}">
+        <button type="button" class="auth"
+                onclick="window.location='${pageContext.request.contextPath}/app/dashboard'">
+            Dashboard
+        </button>
+        <button type="button" class="auth"
+                onclick="window.location='${pageContext.request.contextPath}/app/leaderboard'">
+            Leaderboard
+        </button>
+        <button type="button" class="auth"
+                onclick="window.location='${pageContext.request.contextPath}/app/logout'">
+            Logout
+        </button>
+        <span style="margin-left:auto;font-weight:500;font-size:14px;">
+                ${sessionScope.user.username}
+        </span>
+    </c:if>
+</nav>
+<hr/>

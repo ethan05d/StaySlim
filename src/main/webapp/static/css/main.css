@@ -1,0 +1,355 @@
+:root {
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --accent-dark: #1e40af;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #0f172a;
+    --text-secondary: #64748b;
+    --border: #e2e8f0;
+    --warning: #f59e0b;
+    --danger: #dc2626;
+    --success: #16a34a;
+    --shadow: rgba(0, 0, 0, 0.05);
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.5;
+    font-size: 15px;
+}
+
+nav {
+    background: var(--accent);
+    color: #fff;
+    padding: 1rem 2rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    box-shadow: 0 1px 3px var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+nav button {
+    background: transparent;
+    border: none;
+    color: inherit;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+nav button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.brand {
+    font-weight: 700;
+    font-size: 18px;
+    margin-right: 1rem;
+    letter-spacing: -0.01em;
+}
+
+h1, h2, h3 {
+    margin-top: 0;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--text);
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 1.5rem;
+}
+
+h2 {
+    font-size: 18px;
+    margin: 1.75rem 0 1rem;
+}
+
+.container {
+    width: 100%;
+    max-width: 850px;
+    margin: 1.75rem auto;
+    background: var(--card);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px var(--shadow);
+    border: 1px solid var(--border);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"] {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    margin: 0.5rem 0 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 15px;
+    transition: border 0.2s;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent-light);
+}
+
+label {
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+button.primary {
+    background: var(--accent);
+    border: none;
+    padding: 0.75rem 1.2rem;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 15px;
+    transition: background 0.2s;
+}
+
+button.primary:hover {
+    background: var(--accent-dark);
+}
+
+/* Stats card */
+#stats {
+    padding-left: 1.25rem;
+    margin-bottom: 1.5rem;
+    border-left: 5px solid var(--accent);
+}
+
+#stats p {
+    margin: 0.5rem 0;
+}
+
+/* Dividers */
+hr {
+    border: none;
+    height: 1px;
+    background-color: var(--border);
+    margin: 1.75rem 0;
+}
+
+/* Check-in container */
+#check-in-container {
+    text-align: center;
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background: linear-gradient(to right, #f0f9ff, #e0f2fe);
+    border-radius: 10px;
+    border: 1px solid var(--accent-light);
+}
+
+#check-in-button-container button {
+    padding: 0.875rem 1.5rem;
+    font-size: 16px;
+    border-radius: 30px;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+    margin: 0.75rem 0;
+    font-weight: 600;
+    background: linear-gradient(to right, var(--accent), var(--accent-dark));
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#check-in-button-container button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.25);
+}
+
+/* Weight history table */
+.weight-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-size: 14px;
+}
+
+.weight-table th {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 2px solid var(--border);
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.weight-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+.weight-diff {
+    font-weight: 600;
+    border-radius: 4px;
+    padding: 2px 8px;
+    display: inline-block;
+}
+
+.weight-diff.down {
+    color: var(--success);
+    background: rgba(22, 163, 74, 0.1);
+}
+
+.weight-diff.up {
+    color: var(--danger);
+    background: rgba(220, 38, 38, 0.1);
+}
+
+.delete-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+    font-size: 13px;
+}
+
+.delete-btn:hover {
+    opacity: 1;
+    color: var(--danger);
+}
+
+/* Leaderboard styling */
+#leaderboard table tr {
+    transition: background 0.2s;
+}
+
+#leaderboard table tr[style*="background-color"] {
+    background-color: var(--accent-light) !important;
+    font-weight: 500;
+}
+
+/* Debug tools */
+#debug-tools {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f1f5f9;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+#debug-tools h3 {
+    margin-top: 0;
+    font-size: 16px;
+    color: var(--text-secondary);
+}
+
+#debug-tools button {
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background: white;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background 0.2s;
+}
+
+#debug-tools button:hover {
+    background: #f8fafc;
+}
+
+#debug-output {
+    margin-top: 10px;
+    font-family: monospace;
+    white-space: pre-wrap;
+    font-size: 13px;
+    color: var(--text-secondary);
+    background: white;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+}
+
+/* Check-in confirmation */
+#check-in-completed {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    background: var(--success);
+    color: white;
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    margin: 1rem 0;
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+
+    opacity: 0;
+    transform: scale(0.8);
+    animation: popIn 0.4s ease-out forwards;
+}
+
+#check-in-completed span {
+    font-size: 2rem;
+    display: block;
+}
+
+@keyframes popIn {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Form messages */
+#log-msg, #signup-msg {
+    color: var(--success);
+    font-weight: 500;
+}
+
+#login-msg, #checkin-msg {
+    font-weight: 500;
+}
+
+/* Responsive tweaks */
+@media (max-width: 900px) {
+    .container {
+        margin: 1.25rem;
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    nav {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding: 0.875rem 1.25rem;
+    }
+    .container {
+        padding: 1.25rem;
+        margin: 1rem;
+    }
+    h1 {
+        font-size: 22px;
+    }
+    input {
+        padding: 0.625rem 0.875rem;
+    }
+}

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoImpl implements UserDao {
-
     @Override
     public void create(User user) throws SQLException {
         String sql = "INSERT INTO Users (Username, Email, PasswordHash, HeightCm) VALUES (?, ?, ?, ?)";
@@ -89,20 +88,6 @@ public class UserDaoImpl implements UserDao {
             }
         }
         return users;
-    }
-
-    @Override
-    public void update(User user) throws SQLException {
-        String sql = "UPDATE Users SET Username=?, Email=?, PasswordHash=?, HeightCm=? WHERE UserID=?";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, user.getUsername());
-            ps.setString(2, user.getEmail());
-            ps.setString(3, user.getPasswordHash());
-            ps.setDouble(4, user.getHeightCm());
-            ps.setInt(5, user.getUserId());
-            ps.executeUpdate();
-        }
     }
 
     @Override

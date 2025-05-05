@@ -17,7 +17,7 @@ public class DailyLogService {
     public void addOrUpdateLog(DailyLog log) throws SQLException {
         // Check for existing log
         List<DailyLog> existing = logDao.findByUser(log.getUserId());
-        for (DailyLog dl : existing) {
+        for (DailyLog dl: existing) {
             if (dl.getLogDate().equals(log.getLogDate())) {
                 // Update
                 log.setLogId(dl.getLogId());

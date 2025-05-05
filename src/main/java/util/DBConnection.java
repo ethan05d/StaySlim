@@ -6,33 +6,34 @@ import java.sql.SQLException;
 import java.sql.SQLWarning;
 
 public class DBConnection {
+    // Make sure name of connection is StaySlim
     private static final String URL =
             "jdbc:mysql://localhost:3306/StaySlim"
                     + "?useSSL=false"
                     + "&allowPublicKeyRetrieval=true"
                     + "&serverTimezone=UTC";
-    private static final String USER = "stayslim";
-    private static final String PASSWORD = "EthanAndRohanPassword";
 
-    static {
+    // Use the correct USER and PASSWORD you provided within MYSQL Workbench
+    private static final String USER = "root";
+    private static final String PASSWORD = "root";
+
+    public static void main(String[] args) {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
+
         } catch (ClassNotFoundException e) {
-            System.err.println("Unable to load JDBC driver");
-            e.printStackTrace();
+            System.err.println("Unable to load the Driver class");
         }
     }
 
     public static Connection getConnection() throws SQLException {
         Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-        // Check for non-fatal warnings
+
         SQLWarning warn = conn.getWarnings();
         while (warn != null) {
             System.out.println("SQL Warning: " + warn.getMessage());
-            System.out.println("State  : " + warn.getSQLState());
-            System.out.println("Error  : " + warn.getErrorCode());
-            warn = warn.getNextWarning();
         }
+
         return conn;
     }
 }

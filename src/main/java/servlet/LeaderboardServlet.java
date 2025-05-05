@@ -26,7 +26,7 @@ public class LeaderboardServlet extends HttpServlet {
 
             List<LeaderEntry> entries = new ArrayList<>();
             int rank = 1;
-            for (Leaderboard lb : raw) {
+            for (Leaderboard lb: raw) {
                 User u = userService.findById(lb.getUserId());
                 String name = u != null ? u.getUsername() : "Unknown";
                 boolean isMe = lb.getUserId() == me;
@@ -40,8 +40,7 @@ public class LeaderboardServlet extends HttpServlet {
             }
 
             req.setAttribute("leaderEntries", entries);
-            req.getRequestDispatcher("/WEB-INF/views/leaderboard.jsp")
-                    .forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/views/leaderboard.jsp").forward(req, resp);
         } catch (SQLException e) {
             throw new ServletException(e);
         }

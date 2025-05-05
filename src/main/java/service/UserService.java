@@ -47,7 +47,10 @@ public class UserService {
         if (user == null) {
             user = userDao.findByEmail(usernameOrEmail);
         }
-        if (user == null) return null;
+
+        if (user == null) {
+            return null;
+        }
 
         String hashed = hashPassword(plainPassword);
         return user.getPasswordHash().equals(hashed) ? user : null;

@@ -5,7 +5,6 @@ import model.DailyLog;
 import util.DBConnection;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,26 +52,6 @@ public class DailyLogDaoImpl implements DailyLogDao {
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                DailyLog log = new DailyLog();
-                log.setLogId(rs.getInt("LogID"));
-                log.setUserId(rs.getInt("UserID"));
-                log.setLogDate(rs.getDate("LogDate").toLocalDate());
-                log.setWeightKg(rs.getDouble("WeightKg"));
-                log.setCaloriesIntake(rs.getInt("CaloriesIntake"));
-                list.add(log);
-            }
-        }
-        return list;
-    }
-
-    @Override
-    public List<DailyLog> findAll() throws SQLException {
-        String sql = "SELECT * FROM DailyLogs ORDER BY LogDate";
-        List<DailyLog> list = new ArrayList<>();
-        try (Connection conn = DBConnection.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 DailyLog log = new DailyLog();
                 log.setLogId(rs.getInt("LogID"));

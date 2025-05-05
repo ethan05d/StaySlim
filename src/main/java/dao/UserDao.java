@@ -10,7 +10,6 @@ public interface UserDao {
     User findByEmail(String email) throws SQLException;
     User findById(int id) throws SQLException;
     List<User> findAll() throws SQLException;
-    void update(User user) throws SQLException;
     void delete(int userId) throws SQLException;
     void deleteAll() throws SQLException;
 }

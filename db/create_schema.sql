@@ -1,17 +1,8 @@
--- create_schema.sql
-
--- 1. Create & select the database
+-- Create & select the database
 CREATE DATABASE IF NOT EXISTS StaySlim;
 USE StaySlim;
 
--- 2. Drop existing tables (idempotency)
-DROP TABLE IF EXISTS Leaderboard;
-DROP TABLE IF EXISTS CheckIns;
-DROP TABLE IF EXISTS Goals;
-DROP TABLE IF EXISTS DailyLogs;
-DROP TABLE IF EXISTS Users;
-
--- 3. Users table
+-- Users table
 CREATE TABLE Users (
     UserID INT AUTO_INCREMENT PRIMARY KEY,
     Username VARCHAR(50)  NOT NULL UNIQUE,
@@ -20,7 +11,7 @@ CREATE TABLE Users (
     HeightCm DECIMAL(5,2) NOT NULL
 );
 
--- 4. DailyLogs table
+-- DailyLogs table
 CREATE TABLE DailyLogs (
     LogID INT AUTO_INCREMENT PRIMARY KEY,
     UserID INT NOT NULL,
@@ -33,7 +24,7 @@ CREATE TABLE DailyLogs (
        ON DELETE CASCADE
 );
 
--- 5. Goals table
+-- Goals table
 CREATE TABLE Goals (
     GoalID INT AUTO_INCREMENT PRIMARY KEY,
     UserID INT NOT NULL,
@@ -46,7 +37,7 @@ CREATE TABLE Goals (
         ON DELETE CASCADE
 );
 
--- 6. CheckIns table
+-- CheckIns table
 CREATE TABLE CheckIns (
     CheckInID INT AUTO_INCREMENT PRIMARY KEY,
     UserID INT NOT NULL,
@@ -57,7 +48,7 @@ CREATE TABLE CheckIns (
       ON DELETE CASCADE
 );
 
--- 7. Leaderboard table
+-- Leaderboard table
 CREATE TABLE Leaderboard (
      UserID INT PRIMARY KEY,
      CurrentStreak INT NOT NULL,

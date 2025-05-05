@@ -18,10 +18,6 @@ public class GoalService {
         return goalDao.findByUser(userId);
     }
 
-    public void updateGoal(Goal goal) throws SQLException {
-        goalDao.update(goal);
-    }
-
     public void deleteGoal(int goalId) throws SQLException {
         goalDao.delete(goalId);
     }

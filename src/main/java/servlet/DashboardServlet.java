@@ -55,8 +55,7 @@ public class DashboardServlet extends HttpServlet {
             }
 
             // Forward to JSP
-            req.getRequestDispatcher("/WEB-INF/views/dashboard.jsp")
-                    .forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/views/dashboard.jsp").forward(req, resp);
 
         } catch (SQLException e) {
             throw new ServletException(e);

@@ -22,7 +22,7 @@ public class CheckInService {
     public void recordCheckIn(CheckIn ci) throws SQLException {
         // Avoid duplicates
         List<CheckIn> existing = checkInDao.findByUser(ci.getUserId());
-        for (CheckIn c : existing) {
+        for (CheckIn c: existing) {
             if (c.getCheckInDate().equals(ci.getCheckInDate())) {
                 return;
             }
@@ -49,7 +49,7 @@ public class CheckInService {
 
     public boolean hasCheckedIn(int userId, LocalDate targetDate) throws SQLException {
         List<CheckIn> existing = checkInDao.findByUser(userId);
-        for (CheckIn c : existing) {
+        for (CheckIn c: existing) {
             if (c.getCheckInDate().equals(targetDate)) {
                 return true;
             }

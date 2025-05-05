@@ -5,13 +5,11 @@ import model.User;
 import service.DailyLogService;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-@WebServlet("/app/logs/edit")
 public class EditLogServlet extends HttpServlet {
     private final DailyLogService logService = new DailyLogService();
 
@@ -31,8 +29,7 @@ public class EditLogServlet extends HttpServlet {
                 return;
             }
             req.setAttribute("log", log);
-            req.getRequestDispatcher("/WEB-INF/views/editLog.jsp")
-                    .forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/views/editLog.jsp").forward(req, resp);
         } catch (NumberFormatException|SQLException e) {
             throw new ServletException(e);
         }
@@ -52,7 +49,7 @@ public class EditLogServlet extends HttpServlet {
 
             DailyLog log = new DailyLog();
             log.setLogId(id);
-            log.setUserId(user.getUserId());       // must set FK on update
+            log.setUserId(user.getUserId()); // must set FK on update
             log.setLogDate(date);
             log.setWeightKg(weightKg);
             log.setCaloriesIntake(calories);

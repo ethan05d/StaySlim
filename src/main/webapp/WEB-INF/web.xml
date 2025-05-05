@@ -4,7 +4,7 @@
                              http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
-    <!-- Authentication Filter -->
+    <!-- Authentication filter -->
     <filter>
         <filter-name>AuthFilter</filter-name>
         <filter-class>filter.AuthFilter</filter-class>
@@ -14,7 +14,7 @@
         <url-pattern>/app/*</url-pattern>
     </filter-mapping>
 
-    <!-- Login Servlet -->
+    <!-- Login servlet -->
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>servlet.LoginServlet</servlet-class>
@@ -24,7 +24,7 @@
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
 
-    <!-- Signup Servlet -->
+    <!-- Signup servlet -->
     <servlet>
         <servlet-name>SignupServlet</servlet-name>
         <servlet-class>servlet.SignupServlet</servlet-class>
@@ -34,7 +34,7 @@
         <url-pattern>/signup</url-pattern>
     </servlet-mapping>
 
-    <!-- Logout Servlet -->
+    <!-- Logout servlet -->
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>servlet.LogoutServlet</servlet-class>
@@ -44,7 +44,7 @@
         <url-pattern>/app/logout</url-pattern>
     </servlet-mapping>
 
-    <!-- Dashboard Servlet -->
+    <!-- Dashboard servlet -->
     <servlet>
         <servlet-name>DashboardServlet</servlet-name>
         <servlet-class>servlet.DashboardServlet</servlet-class>
@@ -54,7 +54,7 @@
         <url-pattern>/app/dashboard</url-pattern>
     </servlet-mapping>
 
-    <!-- DailyLog Servlet -->
+    <!-- DailyLog servlet -->
     <servlet>
         <servlet-name>DailyLogServlet</servlet-name>
         <servlet-class>servlet.DailyLogServlet</servlet-class>
@@ -64,7 +64,27 @@
         <url-pattern>/app/logs</url-pattern>
     </servlet-mapping>
 
-    <!-- CheckIn Servlet -->
+    <!-- DeleteLogServlet -->
+    <servlet>
+        <servlet-name>DeleteLogServlet</servlet-name>
+        <servlet-class>servlet.EditLogServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteLogServlet</servlet-name>
+        <url-pattern>/app/logs/delete</url-pattern>
+    </servlet-mapping>
+
+    <!-- EditLog servlet -->
+    <servlet>
+        <servlet-name>EditLogServlet</servlet-name>
+        <servlet-class>servlet.EditLogServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditLogServlet</servlet-name>
+        <url-pattern>/app/logs/edit</url-pattern>
+    </servlet-mapping>
+
+    <!-- CheckIn servlet -->
     <servlet>
         <servlet-name>CheckInServlet</servlet-name>
         <servlet-class>servlet.CheckInServlet</servlet-class>
@@ -74,7 +94,7 @@
         <url-pattern>/app/checkin</url-pattern>
     </servlet-mapping>
 
-    <!-- Goal Servlet -->
+    <!-- Goal servlet -->
     <servlet>
         <servlet-name>GoalServlet</servlet-name>
         <servlet-class>servlet.GoalServlet</servlet-class>
@@ -84,7 +104,7 @@
         <url-pattern>/app/goals</url-pattern>
     </servlet-mapping>
 
-    <!-- Leaderboard Servlet -->
+    <!-- Leaderboard servlet -->
     <servlet>
         <servlet-name>LeaderboardServlet</servlet-name>
         <servlet-class>servlet.LeaderboardServlet</servlet-class>
@@ -94,7 +114,7 @@
         <url-pattern>/app/leaderboard</url-pattern>
     </servlet-mapping>
 
-    <!-- Admin Servlet -->
+    <!-- Admin servlet -->
     <servlet>
         <servlet-name>AdminServlet</servlet-name>
         <servlet-class>servlet.AdminServlet</servlet-class>

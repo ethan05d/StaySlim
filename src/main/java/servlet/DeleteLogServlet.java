@@ -3,12 +3,10 @@ package servlet;
 import service.DailyLogService;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet("/app/logs/delete")
 public class DeleteLogServlet extends HttpServlet {
     private final DailyLogService logService = new DailyLogService();
 

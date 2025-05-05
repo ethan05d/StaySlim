@@ -17,7 +17,7 @@ StaySlim is a lightweight web application for tracking daily fitness metrics: we
 
    * **Java JDK 11+**: [https://adoptium.net/](https://adoptium.net/)
    * **Apache Maven**: [https://maven.apache.org/install.html](https://maven.apache.org/install.html)
-   * **MySQL Server** & **Workbench**: [https://dev.mysql.com/downloads/](https://dev.mysql.com/downloads/)
+   * **MySQL Server** & **Workbench**: [https://dev.mysql.com/downloads/workbench/](https://dev.mysql.com/downloads/workbench/)
 
 3. **Configure MySQL & Initialize Schema**
 

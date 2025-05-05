@@ -21,8 +21,8 @@ StaySlim is a lightweight web application for tracking daily fitness metrics: we
 
 3. **Configure MySQL & Initialize Schema**
 
-   * Start your MySQL server.
-   * Open **MySQL Workbench**, connect as a user with privileges, and both open `db/create_schema.sql` and `db/initialize_data.sql` independently.
+   * Start your MySQL server, with the connection name `StaySlim`.
+   * Open **MySQL Workbench**, connect as a user with privileges, and open both `db/create_schema.sql` and `db/initialize_data.sql` independently.
    * Click the **Execute** button on both scripts separately to run the script and create the `StaySlim` database and tables.
 
 4. **Verify DB Connection Settings**

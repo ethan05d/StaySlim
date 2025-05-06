@@ -16,6 +16,12 @@ public class EditLogServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        HttpSession session = req.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            resp.sendRedirect(req.getContextPath() + "/login");
+            return;
+        }
+
         String idParam = req.getParameter("id");
         if (idParam == null) {
             resp.sendRedirect(req.getContextPath() + "/app/dashboard");

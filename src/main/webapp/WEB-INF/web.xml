@@ -67,7 +67,7 @@
     <!-- DeleteLogServlet -->
     <servlet>
         <servlet-name>DeleteLogServlet</servlet-name>
-        <servlet-class>servlet.EditLogServlet</servlet-class>
+        <servlet-class>servlet.DeleteLogServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DeleteLogServlet</servlet-name>

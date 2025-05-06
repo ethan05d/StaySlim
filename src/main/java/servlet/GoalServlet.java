@@ -21,16 +21,32 @@ public class GoalServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = req.getSession(false);
         User user = (User)session.getAttribute("user");
-        int id = req.getParameter("id")!=null?Integer.parseInt(req.getParameter("id")):0;
-        if (req.getParameter("_method")!=null && req.getParameter("_method").equals("delete")) {
-            try { goalService.deleteGoal(id); } catch(SQLException e){throw new ServletException(e);}
+
+        int id = 0;
+        if (req.getParameter("id") != null) {
+            id = Integer.parseInt(req.getParameter("id"));
+        }
+
+        if (req.getParameter("_method") != null && req.getParameter("_method").equals("delete")) {
+            try {
+                goalService.deleteGoal(id);
+            } catch(SQLException e) {
+                throw new ServletException(e);
+            }
+
         } else {
-            double tw = Double.parseDouble(req.getParameter("targetWeightKg"));
-            int tc = Integer.parseInt(req.getParameter("targetCalories"));
-            LocalDate sd = LocalDate.parse(req.getParameter("startDate"));
-            LocalDate ed = LocalDate.parse(req.getParameter("endDate"));
-            Goal g = new Goal(user.getUserId(), tw, tc, sd, ed);
-            try { goalService.addGoal(g); } catch(SQLException e){throw new ServletException(e);}
+            double targetWeight = Double.parseDouble(req.getParameter("targetWeightKg"));
+            int targetCalories = Integer.parseInt(req.getParameter("targetCalories"));
+            LocalDate startDate = LocalDate.parse(req.getParameter("startDate"));
+            LocalDate endDate = LocalDate.parse(req.getParameter("endDate"));
+
+            Goal g = new Goal(user.getUserId(), targetWeight, targetCalories, startDate, endDate);
+
+            try {
+                goalService.addGoal(g);
+            } catch(SQLException e) {
+                throw new ServletException(e);
+            }
         }
         resp.sendRedirect(req.getContextPath()+"/app/goals");
     }
@@ -44,6 +60,8 @@ public class GoalServlet extends HttpServlet {
         try {
             req.setAttribute("goals", goalService.getGoalsForUser(user.getUserId()));
             req.getRequestDispatcher("/WEB-INF/views/goals.jsp").forward(req, resp);
-        } catch(SQLException e) { throw new ServletException(e);}
+        } catch(SQLException e) {
+            throw new ServletException(e);
+        }
     }
 }

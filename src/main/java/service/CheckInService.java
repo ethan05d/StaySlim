@@ -40,6 +40,7 @@ public class CheckInService {
         } else {
             current = 1;
         }
+
         int max = Math.max(current, lb.getMaxStreak());
         lb.setCurrentStreak(current);
         lb.setMaxStreak(max);

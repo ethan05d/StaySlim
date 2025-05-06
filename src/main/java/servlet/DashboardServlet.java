@@ -42,12 +42,14 @@ public class DashboardServlet extends HttpServlet {
             req.setAttribute("logs", logs);
             req.setAttribute("leaderboard", lb);
 
-            // compute BMI for the last entry, if any
+            // compute BMI for the last entry
             if (!logs.isEmpty()) {
                 DailyLog last = logs.get(logs.size() - 1);
                 double heightM = user.getHeightCm() / 100.0;
                 double bmi = last.getWeightKg() / (heightM * heightM);
-                req.setAttribute("bmiFormatted", String.format("%.1f", bmi));
+                double bmiRounded = Math.round(bmi * 10) / 10.0;
+
+                req.setAttribute("bmiFormatted", "" + bmiRounded);
                 req.setAttribute("lastWeightDate", last.getLogDate());
                 req.setAttribute("lastWeightKg", last.getWeightKg());
             } else {

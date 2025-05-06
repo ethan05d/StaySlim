@@ -28,7 +28,12 @@ public class LeaderboardServlet extends HttpServlet {
             int rank = 1;
             for (Leaderboard lb: raw) {
                 User u = userService.findById(lb.getUserId());
-                String name = u != null ? u.getUsername() : "Unknown";
+
+                String name = "Unknown";
+                if (u != null) {
+                    name = u.getUsername();
+                }
+
                 boolean isMe = lb.getUserId() == me;
                 entries.add(new LeaderEntry(
                         rank++,

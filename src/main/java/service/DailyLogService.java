@@ -5,7 +5,6 @@ import dao.impl.DailyLogDaoImpl;
 import model.DailyLog;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.List;
 
 public class DailyLogService {
@@ -15,18 +14,12 @@ public class DailyLogService {
      * Adds or updates a daily log; enforces one entry per user per date.
      */
     public void addOrUpdateLog(DailyLog log) throws SQLException {
-        // Check for existing log
-        List<DailyLog> existing = logDao.findByUser(log.getUserId());
-        for (DailyLog dl: existing) {
-            if (dl.getLogDate().equals(log.getLogDate())) {
-                // Update
-                log.setLogId(dl.getLogId());
-                logDao.update(log);
-                return;
-            }
+        if (log.getLogId() > 0) {
+            logDao.update(log);
+        } else {
+            // New row
+            logDao.create(log);
         }
-        // Create new
-        logDao.create(log);
     }
 
     public List<DailyLog> getLogsForUser(int userId) throws SQLException {

@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = req.getSession(true);
             session.setAttribute("user", user);
 
-            // redirect, so the next page sees sessionScope.user populated
+            // redirect, so the next page sees sessionScope.user stored
             resp.sendRedirect(req.getContextPath() + "/app/dashboard");
         }
         catch (SQLException e) {

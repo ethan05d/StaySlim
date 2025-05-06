@@ -12,19 +12,33 @@ StaySlim is a lightweight web application for tracking daily fitness metrics: we
    git clone https://github.com/ethan05d/StaySlim.git
    cd StaySlim
    ```
-
+---
 2. **Install Prerequisites**
 
-   * **Java JDK 11+**: [https://adoptium.net/](https://adoptium.net/)
+   * **Java JDK 21+**: [https://adoptium.net/](https://adoptium.net/)
    * **Apache Maven**: [https://maven.apache.org/install.html](https://maven.apache.org/install.html)
    * **MySQL Server** & **Workbench**: [https://dev.mysql.com/downloads/workbench/](https://dev.mysql.com/downloads/workbench/)
-
+---
 3. **Configure MySQL & Initialize Schema**
 
-   * Start your MySQL server, with the connection name `StaySlim`.
-   * Open **MySQL Workbench**, connect as a user with privileges, and open both `db/create_schema.sql` and `db/initialize_data.sql` independently.
-   * Click the **Execute** button on both scripts separately to run the script and create the `StaySlim` database and tables.
+   #### Option A: MySQL Workbench
 
+   1. **Start** your MySQL server and **launch** MySQL Workbench. 
+   2. In the **Navigator**, select your `StaySlim` connection (or create it).
+   3. **Open** `db/create_schema.sql`
+      - Click the **Execute** button (⚡).
+   4. **Open** `db/initialize_data.sql`
+      - Click **Execute** again.
+
+   #### Option B: Command Line (using MySQL's `root` user, adjust as needed)
+
+   ```bash
+   # From your project root:
+   mysql -u root -p < db/create_schema.sql
+   mysql -u root -p < db/initialize_data.sql
+   ```
+
+---
 4. **Verify DB Connection Settings**
 
    Ensure the credentials in `src/main/java/util/DBConnection.java` match your MySQL setup:
@@ -34,9 +48,9 @@ StaySlim is a lightweight web application for tracking daily fitness metrics: we
    PASSWORD = "root";
    ```
 
-   In this case, `USER = "root"` and `PASSWORD = "root"` set via MySQL server connection. Adjust as needed for your environment.
-
-6. **Build & Run**
+   In this case, `DB_NAME = StaySlim`, `USER = "root"` and `PASSWORD = "root"` set via MySQL server. Adjust as needed for your environment.
+---
+5. **Build & Run**
 
    ```bash
    mvn clean package
@@ -47,7 +61,7 @@ StaySlim is a lightweight web application for tracking daily fitness metrics: we
 
 ## Dependencies & Software
 
-* Java SE Development Kit 11 or later
+* Java SDK 21+
 * Apache Maven 3.6+
 * MySQL Server 8.x
 * MySQL Workbench (optional GUI)

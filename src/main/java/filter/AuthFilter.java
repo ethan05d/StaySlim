@@ -7,23 +7,24 @@ import java.io.IOException;
 public class AuthFilter implements Filter {
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException { }
+    public void init(FilterConfig filterConfig) throws ServletException {}
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        HttpServletRequest req  = (HttpServletRequest) request;
+        HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
         HttpSession session = req.getSession(false);
 
-        boolean loggedIn = session != null && session.getAttribute("user") != null;
-        if (!loggedIn) {
+        // Checks if user is not logged in
+        if (session == null || session.getAttribute("user") == null) {
             resp.sendRedirect(req.getContextPath() + "/login");
             return;
         }
+
         chain.doFilter(request, response);
     }
 
     @Override
-    public void destroy() { }
+    public void destroy() {}
 }

@@ -10,16 +10,16 @@ import java.util.List;
 public class LeaderboardService {
     private final LeaderboardDao lbDao = new LeaderboardDaoImpl();
 
-    /**
+    /*
      * Retrieves top N users by current streak.
      */
     public List<Leaderboard> getTopStreaks(int limit) throws SQLException {
         return lbDao.findTopStreaks(limit);
     }
 
-    /**
-     * Retrieves leaderboard entry for a specific user.
-     */
+    /*
+       Retrieves leaderboard entry for a specific user.
+    */
     public Leaderboard getForUser(int userId) throws SQLException {
         return lbDao.findByUser(userId);
     }

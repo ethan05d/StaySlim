@@ -26,7 +26,7 @@ public class DailyLogDaoImpl implements DailyLogDao {
 
     @Override
     public DailyLog findById(int id) throws SQLException {
-        String sql = "SELECT * FROM DailyLogs WHERE LogID = ?";
+        String sql = "SELECT * FROM DailyLogs WHERE LogID=?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
@@ -46,7 +46,7 @@ public class DailyLogDaoImpl implements DailyLogDao {
 
     @Override
     public List<DailyLog> findByUser(int userId) throws SQLException {
-        String sql = "SELECT * FROM DailyLogs WHERE UserID = ? ORDER BY LogDate";
+        String sql = "SELECT * FROM DailyLogs WHERE UserID=? ORDER BY LogDate";
         List<DailyLog> list = new ArrayList<>();
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -67,12 +67,13 @@ public class DailyLogDaoImpl implements DailyLogDao {
 
     @Override
     public void update(DailyLog log) throws SQLException {
-        String sql = "UPDATE DailyLogs SET WeightKg=?, CaloriesIntake=? WHERE LogID=?";
+        String sql = "UPDATE DailyLogs SET LogDate=?, WeightKg=?, CaloriesIntake=? WHERE LogID=?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setDouble(1, log.getWeightKg());
-            ps.setInt(2, log.getCaloriesIntake());
-            ps.setInt(3, log.getLogId());
+            ps.setDate(1, Date.valueOf(log.getLogDate()));
+            ps.setDouble(2, log.getWeightKg());
+            ps.setInt(3, log.getCaloriesIntake());
+            ps.setInt(4, log.getLogId());
             ps.executeUpdate();
         }
     }

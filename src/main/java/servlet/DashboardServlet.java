@@ -19,9 +19,11 @@ public class DashboardServlet extends HttpServlet {
     private final LeaderboardService lbService = new LeaderboardService();
     private final CheckInService checkInService = new CheckInService();
 
+    // render the user's dashboard with logs, streaks, BMI, etc.
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        // ensure the user is logged in
         HttpSession session = req.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
             resp.sendRedirect(req.getContextPath() + "/login");
@@ -30,19 +32,17 @@ public class DashboardServlet extends HttpServlet {
 
         User user = (User) session.getAttribute("user");
         try {
-            // Fetch the user's logs and leaderboard entry
+            // fetch all the user info
             List<DailyLog> logs = logService.getLogsForUser(user.getUserId());
             Leaderboard lb = lbService.getForUser(user.getUserId());
 
-            // Checks if a user has checked in
             boolean checkedInToday = checkInService.hasCheckedIn(user.getUserId(), LocalDate.now());
             req.setAttribute("checkedInToday", checkedInToday);
 
-            // Put them into request scope
             req.setAttribute("logs", logs);
             req.setAttribute("leaderboard", lb);
 
-            // compute BMI for the last entry
+            // calculate BMI based on the last log entry
             if (!logs.isEmpty()) {
                 DailyLog last = logs.get(logs.size() - 1);
                 double heightM = user.getHeightCm() / 100.0;
@@ -52,11 +52,12 @@ public class DashboardServlet extends HttpServlet {
                 req.setAttribute("bmiFormatted", "" + bmiRounded);
                 req.setAttribute("lastWeightDate", last.getLogDate());
                 req.setAttribute("lastWeightKg", last.getWeightKg());
+
             } else {
+                // no logs yet
                 req.setAttribute("bmiFormatted", null);
             }
 
-            // Forward to JSP
             req.getRequestDispatcher("/WEB-INF/views/dashboard.jsp").forward(req, resp);
 
         } catch (SQLException e) {

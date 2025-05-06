@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LeaderboardDaoImpl implements LeaderboardDao {
+
+    // insert or update a leaderboard entry for a user
     @Override
     public void createOrUpdate(Leaderboard lb) throws SQLException {
         String select = "SELECT UserID FROM Leaderboard WHERE UserID=?";
@@ -16,7 +18,9 @@ public class LeaderboardDaoImpl implements LeaderboardDao {
              PreparedStatement psCheck = conn.prepareStatement(select)) {
             psCheck.setInt(1, lb.getUserId());
             ResultSet rs = psCheck.executeQuery();
+
             if (rs.next()) {
+                // already exists, so update streak values
                 String update = "UPDATE Leaderboard SET CurrentStreak=?, MaxStreak=?, LastCheckInDate=? WHERE UserID=?";
                 try (PreparedStatement psUpd = conn.prepareStatement(update)) {
                     psUpd.setInt(1, lb.getCurrentStreak());
@@ -26,6 +30,7 @@ public class LeaderboardDaoImpl implements LeaderboardDao {
                     psUpd.executeUpdate();
                 }
             } else {
+                // new entry, so insert fresh row
                 String insert = "INSERT INTO Leaderboard (UserID, CurrentStreak, MaxStreak, LastCheckInDate) VALUES (?, ?, ?, ?)";
                 try (PreparedStatement psIns = conn.prepareStatement(insert)) {
                     psIns.setInt(1, lb.getUserId());
@@ -38,6 +43,7 @@ public class LeaderboardDaoImpl implements LeaderboardDao {
         }
     }
 
+    // find the leaderboard row for a specific user
     @Override
     public Leaderboard findByUser(int userId) throws SQLException {
         String sql = "SELECT * FROM Leaderboard WHERE UserID=?";
@@ -45,6 +51,7 @@ public class LeaderboardDaoImpl implements LeaderboardDao {
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
+
             if (rs.next()) {
                 Leaderboard lb = new Leaderboard();
                 lb.setUserId(rs.getInt("UserID"));
@@ -54,9 +61,11 @@ public class LeaderboardDaoImpl implements LeaderboardDao {
                 return lb;
             }
         }
+        // return null if user not on leaderboard yet
         return null;
     }
 
+    // get the limit amount of users by their current streak in descending order
     @Override
     public List<Leaderboard> findTopStreaks(int limit) throws SQLException {
         String sql = "SELECT * FROM Leaderboard ORDER BY CurrentStreak DESC LIMIT ?";
@@ -65,6 +74,7 @@ public class LeaderboardDaoImpl implements LeaderboardDao {
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, limit);
             ResultSet rs = ps.executeQuery();
+
             while (rs.next()) {
                 Leaderboard lb = new Leaderboard();
                 lb.setUserId(rs.getInt("UserID"));
@@ -74,9 +84,11 @@ public class LeaderboardDaoImpl implements LeaderboardDao {
                 list.add(lb);
             }
         }
+
         return list;
     }
 
+    // delete a user's leaderboard entry by their UserID
     @Override
     public void delete(int userId) throws SQLException {
         String sql = "DELETE FROM Leaderboard WHERE UserID=?";
@@ -87,6 +99,7 @@ public class LeaderboardDaoImpl implements LeaderboardDao {
         }
     }
 
+    // remove all entries from the Leaderboard table
     @Override
     public void deleteAll() throws SQLException {
         try (Connection conn = DBConnection.getConnection();

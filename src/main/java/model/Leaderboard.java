@@ -2,6 +2,7 @@ package model;
 
 import java.time.LocalDate;
 
+// Model for storing a user’s leaderboard stats (current and max streak)
 public class Leaderboard {
     private int userId;
     private int currentStreak;

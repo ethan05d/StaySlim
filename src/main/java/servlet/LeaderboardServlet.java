@@ -13,17 +13,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LeaderboardServlet extends HttpServlet {
-    private final LeaderboardService lbService   = new LeaderboardService();
+    private final LeaderboardService lbService = new LeaderboardService();
     private final UserService userService = new UserService();
 
+    // Show the top users by streak and highlight the current user
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         try {
+            // get top 10 streak entries
             List<Leaderboard> raw = lbService.getTopStreaks(10);
             HttpSession session = req.getSession(false);
-            int me = ((User)session.getAttribute("user")).getUserId();
+            int me = ((User) session.getAttribute("user")).getUserId();
 
+            // transform into LeaderEntry objects
             List<LeaderEntry> entries = new ArrayList<>();
             int rank = 1;
             for (Leaderboard lb: raw) {
@@ -34,6 +37,7 @@ public class LeaderboardServlet extends HttpServlet {
                     name = u.getUsername();
                 }
 
+                // mark if this row is the logged-in user
                 boolean isMe = lb.getUserId() == me;
                 entries.add(new LeaderEntry(
                         rank++,

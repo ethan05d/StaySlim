@@ -1,5 +1,6 @@
 package servlet;
 
+// Simple data holder class for displaying a user’s rank and streak on the leaderboard
 public class LeaderEntry {
     private final int rank;
     private final String username;

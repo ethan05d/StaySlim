@@ -4,6 +4,7 @@ import model.Leaderboard;
 import java.sql.SQLException;
 import java.util.List;
 
+// DAO for managing leaderboard entries
 public interface LeaderboardDao {
     void createOrUpdate(Leaderboard lb) throws SQLException;
     Leaderboard findByUser(int userId) throws SQLException;

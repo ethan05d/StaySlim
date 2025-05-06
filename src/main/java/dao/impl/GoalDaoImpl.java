@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GoalDaoImpl implements GoalDao {
+
+    // insert a new goal
     @Override
     public void create(Goal goal) throws SQLException {
         String sql = "INSERT INTO Goals (UserID, TargetWeightKg, TargetCalories, StartDate, EndDate) VALUES (?, ?, ?, ?, ?)";
@@ -20,11 +22,17 @@ public class GoalDaoImpl implements GoalDao {
             ps.setDate(4, Date.valueOf(goal.getStartDate()));
             ps.setDate(5, Date.valueOf(goal.getEndDate()));
             ps.executeUpdate();
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) goal.setGoalId(rs.getInt(1));
+
+            // get the auto-generated goalID
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) {
+                    goal.setGoalId(rs.getInt(1));
+                }
+            }
         }
     }
 
+    // fetch all goals for a user, sorted by when each goal starts
     @Override
     public List<Goal> findByUser(int userId) throws SQLException {
         String sql = "SELECT * FROM Goals WHERE UserID=? ORDER BY StartDate";
@@ -47,6 +55,7 @@ public class GoalDaoImpl implements GoalDao {
         return list;
     }
 
+    // delete a specific goal by GoalID
     @Override
     public void delete(int id) throws SQLException {
         String sql = "DELETE FROM Goals WHERE GoalID=?";
@@ -57,6 +66,7 @@ public class GoalDaoImpl implements GoalDao {
         }
     }
 
+    // clear all goals from the table
     @Override
     public void deleteAll() throws SQLException {
         try (Connection conn = DBConnection.getConnection();

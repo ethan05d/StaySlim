@@ -9,12 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoImpl implements UserDao {
+
+    // create a new user record
     @Override
     public void create(User user) throws SQLException {
         String sql = "INSERT INTO Users (Username, Email, PasswordHash, HeightCm) VALUES (?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            conn.setAutoCommit(false);
+            conn.setAutoCommit(false); // start a transaction
 
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getEmail());
@@ -27,10 +29,12 @@ public class UserDaoImpl implements UserDao {
                     user.setUserId(rs.getInt(1));
                 }
             }
-            conn.commit();
+
+            conn.commit(); // commit the transaction
         }
     }
 
+    // find a user by their username (for login or checks)
     @Override
     public User findByUsername(String username) throws SQLException {
         String sql = "SELECT UserID, Username, Email, PasswordHash, HeightCm FROM Users WHERE Username = ?";
@@ -43,9 +47,11 @@ public class UserDaoImpl implements UserDao {
                 }
             }
         }
+        // return null if no user found with that username
         return null;
     }
 
+    // find a user by email
     @Override
     public User findByEmail(String email) throws SQLException {
         String sql = "SELECT UserID, Username, Email, PasswordHash, HeightCm FROM Users WHERE Email = ?";
@@ -58,24 +64,29 @@ public class UserDaoImpl implements UserDao {
                 }
             }
         }
+
         return null;
     }
 
+    // fetch a user by their userID
     @Override
     public User findById(int id) throws SQLException {
         String sql = "SELECT UserID, Username, Email, PasswordHash, HeightCm FROM Users WHERE UserID = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
+
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return mapRow(rs);
                 }
             }
         }
+
         return null;
     }
 
+    // retrieve all users in the system (for admin page)
     @Override
     public List<User> findAll() throws SQLException {
         String sql = "SELECT UserID, Username, Email, PasswordHash, HeightCm FROM Users";
@@ -87,9 +98,11 @@ public class UserDaoImpl implements UserDao {
                 users.add(mapRow(rs));
             }
         }
+
         return users;
     }
 
+    // delete a user by userID
     @Override
     public void delete(int id) throws SQLException {
         String sql = "DELETE FROM Users WHERE UserID = ?";
@@ -100,6 +113,7 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    // remove all users
     @Override
     public void deleteAll() throws SQLException {
         try (Connection conn = DBConnection.getConnection();
@@ -108,6 +122,7 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    // helper method to map a ResultSet row to a User object
     private User mapRow(ResultSet rs) throws SQLException {
         User u = new User();
         u.setUserId(rs.getInt("UserID"));

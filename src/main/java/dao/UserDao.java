@@ -4,6 +4,7 @@ import model.User;
 import java.sql.SQLException;
 import java.util.List;
 
+// DAO for user account operations (create, find, delete)
 public interface UserDao {
     void create(User user) throws SQLException;
     User findByUsername(String username) throws SQLException;

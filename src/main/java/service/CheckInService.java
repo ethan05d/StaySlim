@@ -15,39 +15,41 @@ public class CheckInService {
     private final CheckInDao checkInDao = new CheckInDaoImpl();
     private final LeaderboardDao lbDao = new LeaderboardDaoImpl();
 
-    /**
-     * Records a check-in if not already done for that date,
-     * and updates streaks on the leaderboard.
-     */
+    // record a check-in for the user and update their streak on the leaderboard
     public void recordCheckIn(CheckIn ci) throws SQLException {
-        // Avoid duplicates
+        // load all existing check-ins for this user and don't record if they've already checked in
         List<CheckIn> existing = checkInDao.findByUser(ci.getUserId());
         for (CheckIn c: existing) {
             if (c.getCheckInDate().equals(ci.getCheckInDate())) {
                 return;
             }
         }
-        // Create check-in
+
         checkInDao.create(ci);
 
-        // Update leaderboard
+        // load the user's leaderboard entry to update streaks
         Leaderboard lb = lbDao.findByUser(ci.getUserId());
         LocalDate lastDate = lb.getLastCheckInDate();
         int current = lb.getCurrentStreak();
-        // New streak if consecutive day
+
+        // if this check-in is the day after the last, increment streak. Else just reset to 1
         if (ci.getCheckInDate().equals(lastDate.plusDays(1))) {
             current++;
         } else {
             current = 1;
         }
 
+        // update max streak if needed
         int max = Math.max(current, lb.getMaxStreak());
         lb.setCurrentStreak(current);
         lb.setMaxStreak(max);
         lb.setLastCheckInDate(ci.getCheckInDate());
+
+        // save changes back to the leaderboard
         lbDao.createOrUpdate(lb);
     }
 
+    // return true if the user has a check-in entry for the given date
     public boolean hasCheckedIn(int userId, LocalDate targetDate) throws SQLException {
         List<CheckIn> existing = checkInDao.findByUser(userId);
         for (CheckIn c: existing) {
@@ -55,7 +57,6 @@ public class CheckInService {
                 return true;
             }
         }
-
         return false;
     }
 }

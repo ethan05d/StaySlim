@@ -2,6 +2,7 @@ package model;
 
 import java.time.LocalDate;
 
+// Model representing a user’s goal period with weight and calorie targets
 public class Goal {
     private int goalId;
     private int userId;

@@ -4,12 +4,43 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9246bd86-21f1-477f-8ec2-69b967c387fe" name="Changes" comment="development cleanup WIP">
-      <change afterPath="$PROJECT_DIR$/src/test/java/service/CheckInServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/service/DailyLogServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/service/LeaderboardServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/service/UserServiceTest.java" afterDir="false" />
+    <list default="true" id="9246bd86-21f1-477f-8ec2-69b967c387fe" name="Changes" comment="added JUNIT test cases for service files">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/CheckInDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/CheckInDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/DailyLogDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/DailyLogDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/GoalDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/GoalDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/LeaderboardDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/LeaderboardDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/impl/CheckInDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/impl/CheckInDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/impl/DailyLogDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/impl/DailyLogDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/impl/GoalDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/impl/GoalDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/impl/LeaderboardDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/impl/LeaderboardDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/impl/UserDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/impl/UserDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/filter/AuthFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/filter/AuthFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/CheckIn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/CheckIn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/DailyLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/DailyLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Goal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Goal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Leaderboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Leaderboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/CheckInService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/CheckInService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/DailyLogService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/DailyLogService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/GoalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/GoalService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/LeaderboardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/LeaderboardService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/AdminServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/AdminServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/CheckInServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/CheckInServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/DailyLogServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/DailyLogServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/DashboardServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/DashboardServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/DeleteLogServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/DeleteLogServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/EditLogServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/EditLogServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/GoalServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/GoalServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/LeaderEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/LeaderEntry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/LeaderboardServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/LeaderboardServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/LoginServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/LogoutServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/LogoutServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/SignupServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/SignupServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/DBConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/js/app.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +125,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746551634740</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="added JUNIT test cases for service files">
+      <option name="closed" value="true" />
+      <created>1746552856393</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1746552856393</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -113,6 +152,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="development cleanup WIP" />
-    <option name="LAST_COMMIT_MESSAGE" value="development cleanup WIP" />
+    <MESSAGE value="added JUNIT test cases for service files" />
+    <option name="LAST_COMMIT_MESSAGE" value="added JUNIT test cases for service files" />
   </component>
 </project>

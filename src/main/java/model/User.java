@@ -1,5 +1,6 @@
 package model;
 
+// Model representing a user with all their profile data
 public class User {
     private int userId;
     private String username;

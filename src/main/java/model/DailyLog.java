@@ -2,6 +2,7 @@ package model;
 
 import java.time.LocalDate;
 
+// Model for storing one day’s weight and calorie intake for a user
 public class DailyLog {
     private int logId;
     private int userId;

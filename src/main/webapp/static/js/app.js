@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Grab context‐path for constructing URLs
     const ctx = document.body.getAttribute('data-context-path') || '';
 
-    // ===== Debug Tools =====
+    // Debug Tools
     const repairBtn = document.querySelector('#debug-tools button:nth-child(1)');
     if (repairBtn) {
         repairBtn.addEventListener('click', () => {

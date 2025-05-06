@@ -2,6 +2,7 @@ package model;
 
 import java.time.LocalDate;
 
+// Model representing a user’s daily check-in record
 public class CheckIn {
     private int checkInId;
     private int userId;

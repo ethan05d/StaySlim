@@ -4,22 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9246bd86-21f1-477f-8ec2-69b967c387fe" name="Changes" comment="">
+    <list default="true" id="9246bd86-21f1-477f-8ec2-69b967c387fe" name="Changes" comment="development cleanup WIP">
+      <change afterPath="$PROJECT_DIR$/src/test/java/service/CheckInServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/service/DailyLogServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/service/LeaderboardServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/service/UserServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/impl/DailyLogDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/impl/DailyLogDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/filter/AuthFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/filter/AuthFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/CheckInService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/CheckInService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/DailyLogService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/DailyLogService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/LeaderboardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/LeaderboardService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/DashboardServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/DashboardServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/EditLogServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/EditLogServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/GoalServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/GoalServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/LeaderboardServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/LeaderboardServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/LoginServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/header.jspf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/header.jspf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,6 +86,15 @@
       <workItem from="1746151686701" duration="9596000" />
       <workItem from="1746161303284" duration="2774000" />
     </task>
+    <task id="LOCAL-00001" summary="development cleanup WIP">
+      <option name="closed" value="true" />
+      <created>1746551634739</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1746551634740</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -111,5 +110,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="development cleanup WIP" />
+    <option name="LAST_COMMIT_MESSAGE" value="development cleanup WIP" />
   </component>
 </project>

@@ -58,7 +58,7 @@ public class AdminServlet extends HttpServlet {
         try {
             // wipe all related data for all users
             userService.resetAll();
-            // respond with 204 No Content on success
+            // respond with 204 code on success
             resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
 
         } catch(SQLException e) {

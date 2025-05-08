@@ -19,8 +19,8 @@ public class CheckInServiceTest {
 
     @BeforeAll
     void setup() throws SQLException {
-        userService        = new UserService();
-        checkInService     = new CheckInService();
+        userService = new UserService();
+        checkInService = new CheckInService();
         leaderboardService = new LeaderboardService();
 
         // create a throwaway user (also initializes their leaderboard)

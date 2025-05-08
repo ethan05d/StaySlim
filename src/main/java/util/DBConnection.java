@@ -3,7 +3,6 @@ package util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.SQLWarning;
 
 // DB Connection JDBC class
 public class DBConnection {
@@ -13,7 +12,7 @@ public class DBConnection {
                     + "&allowPublicKeyRetrieval=true"
                     + "&serverTimezone=UTC";
 
-    // Database credentials (match what you configured in MySQL server)
+    // database credentials (match what you configured in MySQL server)
     private static final String USER = "root";
     private static final String PASSWORD = "root";
 

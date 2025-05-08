@@ -2,6 +2,13 @@
 CREATE DATABASE IF NOT EXISTS StaySlim;
 USE StaySlim;
 
+-- Drop tables if they already exist
+DROP TABLE IF EXISTS Leaderboard;
+DROP TABLE IF EXISTS CheckIns;
+DROP TABLE IF EXISTS Goals;
+DROP TABLE IF EXISTS DailyLogs;
+DROP TABLE IF EXISTS Users;
+
 -- Users table
 CREATE TABLE Users (
     UserID INT AUTO_INCREMENT PRIMARY KEY,
